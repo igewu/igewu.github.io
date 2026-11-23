@@ -69,13 +69,13 @@
   .hero .pre{font-size:14px;letter-spacing:.42em;color:var(--mute);padding-left:.42em}
   .gold{background:linear-gradient(100deg,var(--gold-d) 0%,var(--gold) 20%,var(--gold-l) 35%,#fffaf0 42%,var(--gold-l) 49%,var(--gold) 65%,var(--gold-d) 100%);
     background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
-  .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(30px,9.2vw,42px);letter-spacing:.06em;margin-top:14px;line-height:1.25;
+  .hero h1{font-family:var(--serif);font-weight:900;font-size:min(40px,calc((100vw - 60px) / 10.8));letter-spacing:.04em;white-space:nowrap;margin-top:14px;line-height:1.25;
     filter:drop-shadow(0 2px 12px rgba(217,184,120,.25))}
   .rule{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px}
-  .rule::before,.rule::after{content:"";height:1px;width:42px;background:linear-gradient(90deg,transparent,rgba(217,184,120,.85));
+  .rule::before,.rule::after{content:"";height:1px;width:min(42px,9vw);flex:none;background:linear-gradient(90deg,transparent,rgba(217,184,120,.85));
     transform-origin:right;animation:grow 1.2s ease both .9s}
-  .rule::after{transform:scaleX(-1);transform-origin:left;animation-name:growR}
-  .rule span{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:.5em;padding-left:.5em;color:#fff}
+  .rule::after{transform:scaleX(-1);transform-origin:center;animation-name:growR}
+  .rule span{font-family:var(--serif);font-weight:700;font-size:min(17px,4.4vw);letter-spacing:.4em;padding-left:.4em;color:#fff;white-space:nowrap}
   .hero .date{margin-top:14px;font-size:13px;letter-spacing:.18em;color:var(--mute)}
 
   /* ---------- 卡片 + 流光边框 + HUD 角标 ---------- */
@@ -127,7 +127,7 @@
   .wel .nm{font-family:var(--serif);font-weight:900;font-size:38px;letter-spacing:.12em;padding-left:.12em;margin-top:8px;color:#fff;
     text-shadow:0 0 18px rgba(243,226,181,.35)}
   .wel .nm span{display:inline-block;animation:charIn .7s cubic-bezier(.2,.8,.2,1) both}
-  .wel .line{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.16em;padding-left:.16em;margin-top:12px;animation:pop .7s ease both .55s}
+  .wel .line{white-space:nowrap;font-family:var(--serif);font-weight:700;font-size:min(21px,5.4vw);letter-spacing:.16em;padding-left:.16em;margin-top:12px;animation:pop .7s ease both .55s}
   .wel .pre1{font-family:var(--serif);font-size:17px;letter-spacing:.5em;padding-left:.5em;color:var(--mute);margin-top:12px;animation:pop .6s ease both .05s}
   .wel .nm{margin-top:4px!important}
   /* 名单外 */
