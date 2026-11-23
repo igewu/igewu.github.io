@@ -207,18 +207,18 @@
   @media (prefers-reduced-motion:reduce){.logo .ring{-webkit-mask:none;mask:none}.logo .text{clip-path:none!important;opacity:1!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style>
 <script>
-/* ---------------- 云开发 PostgreSQL：写入签到记录 ---------------- */
+/* ---------------- 签到记录：经云函数中转写入数据库 ---------------- */
 window.CB=(function(){
-  const ENV="amateur-carp-d3gbba9u8f40f872c", KEY="eyJhbGciOiJSUzI1NiIsImtpZCI6IjY4OWE2YTUxLWIyMTQtNGYxZi05NjVlLTgyNjE0YzE1MWExYyJ9.eyJpc3MiOiJodHRwczovL2FtYXRldXItY2FycC1kM2diYmE5dThmNDBmODcyYy5hcC1zaGFuZ2hhaS50Y2ItYXBpLnRlbmNlbnRjbG91ZGFwaS5jb20iLCJzdWIiOiJhbm9uIiwiYXVkIjoiYW1hdGV1ci1jYXJwLWQzZ2JiYTl1OGY0MGY4NzJjIiwiZXhwIjo0MDk5MTEwMTg3LCJpYXQiOjE3OTU0MjY5ODcsIm5vbmNlIjoiRkx0alkzdjZTbC1TNmt1UURHV0lkUSIsImF0X2hhc2giOiJGTHRqWTN2NlNsLVM2a3VRREdXSWRRIiwibmFtZSI6IkFub255bW91cyIsInNjb3BlIjoiYW5vbnltb3VzIiwicHJvamVjdF9pZCI6ImFtYXRldXItY2FycC1kM2diYmE5dThmNDBmODcyYyIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.rJauHIFXIIAIaxWeM1Lt1aFQZJ_1BUpsw4geT-wVZc6a8NttEtefkFJwBJlyriWl9J5d4Ocnd5VnARb8RG7RsAj7P-Gkg2IgvRNWUpuzw6nxv_KZgv_XBOj2hoIg0JT5R6bD9S76i3CpRDE0FWTRe8KG_uig6evhKmlXHZmmhZKVVy22nR29V5rcQhraTn0fjONxtTabh7I9TE_xiYyWyfYYw2HA33A7jpAkNkjEr6g-lphna5Ms4NyzzMBcDK6OHwGmMvIYEACLV4xr2b3K4Zu8d_P-GSpWTFJ3APSXG4VTigjFW6NONllU-qcG379WtLTM4T4_I5Tqd5LzcEUW_Q";
-  const API=`https://${ENV}.api.tcloudbasegateway.com/v1/rdb/rest/checkins`;
+  const API="https://amateur-carp-d3gbba9u8f40f872c-1539522971.ap-shanghai.app.tcloudbase.com/checkin";
   async function checkin(name,pages,src){
     const k="gw_ci_"+name;
     try{ if(localStorage.getItem(k)) return; }catch(e){}
     for(let i=0;i<3;i++){
       try{
-        const r=await fetch(API,{method:"POST",headers:{"Authorization":"Bearer "+KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
-          body:JSON.stringify({name,pages:pages.join("/"),src:src||"guest",at:Date.now()})});
-        if(!r.ok) throw new Error(r.status+" "+await r.text());
+        const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({name,pages:pages.join("/"),src:src||"guest"})});
+        const j=await r.json();
+        if(!r.ok||!j.ok) throw new Error(r.status);
         try{localStorage.setItem(k,"1")}catch(e){}
         return true;
       }catch(e){console.warn("checkin",e); await new Promise(r=>setTimeout(r,1200*(i+1)));}
